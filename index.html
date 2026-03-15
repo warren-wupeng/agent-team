@@ -19,6 +19,9 @@
     --rose: #fb7185;
     --cyan: #22d3ee;
     --purple: #a78bfa;
+    --teal: #2dd4bf;
+    --red: #f87171;
+    --lime: #a3e635;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -162,6 +165,9 @@
   .member-card[data-role="cmo"]::before { background: var(--amber); }
   .member-card[data-role="devops"]::before { background: var(--cyan); }
   .member-card[data-role="pm"]::before { background: var(--rose); }
+  .member-card[data-role="mentor"]::before { background: var(--red); }
+  .member-card[data-role="family"]::before { background: var(--teal); }
+  .member-card[data-role="health"]::before { background: var(--lime); }
 
   .member-header {
     display: flex;
@@ -186,6 +192,9 @@
   .member-card[data-role="cmo"] .member-avatar { background: linear-gradient(135deg, #d97706, #fbbf24); }
   .member-card[data-role="devops"] .member-avatar { background: linear-gradient(135deg, #0891b2, #22d3ee); }
   .member-card[data-role="pm"] .member-avatar { background: linear-gradient(135deg, #e11d48, #fb7185); }
+  .member-card[data-role="mentor"] .member-avatar { background: linear-gradient(135deg, #dc2626, #f87171); }
+  .member-card[data-role="family"] .member-avatar { background: linear-gradient(135deg, #0d9488, #2dd4bf); }
+  .member-card[data-role="health"] .member-avatar { background: linear-gradient(135deg, #65a30d, #a3e635); }
 
   .member-name {
     font-size: 18px;
@@ -205,6 +214,8 @@
   }
   .type-human { background: rgba(99,102,241,0.15); color: var(--accent2); }
   .type-agent { background: rgba(52,211,153,0.15); color: var(--green); }
+  .type-mentor { background: rgba(248,113,113,0.15); color: var(--red); }
+  .type-advisor { background: rgba(45,212,191,0.15); color: var(--teal); }
 
   .member-bg {
     font-size: 13px;
@@ -382,12 +393,12 @@
     <div class="hero-label">Hub-and-Spoke Multi-Agent Architecture</div>
     <h1>Warren's Agent Team</h1>
     <p class="hero-sub">
-      一人 CEO + 五位 AI Agent 组成的全栈创业团队。<br>
-      覆盖技术架构、商业叙事、运维部署、项目协调全链路。
+      一人 CEO + 八位 AI Agent 组成的全方位团队。<br>
+      五人核心团队打仗，三位私人顾问保持 CEO 最佳状态。
     </p>
     <div class="stats">
       <div class="stat-item">
-        <div class="stat-num">1+5</div>
+        <div class="stat-num">1+5+3</div>
         <div class="stat-label">团队规模</div>
       </div>
       <div class="stat-item">
@@ -599,6 +610,87 @@
           <span class="skill-tag">决策记录</span>
         </div>
         <div class="member-traits">"谁 own 这件事？截止时间是？" "我整理了一下当前全景，你看看有没有遗漏。"</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Personal Advisors -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title">私人顾问团 / Personal Advisors</h2>
+    <p class="section-desc">不参与业务执行，专注于 CEO 的决策质量、家庭稳定和身体续航。让 Warren 持续在最佳状态输出。</p>
+
+    <div class="members-grid">
+
+      <!-- 阳萌 -->
+      <div class="member-card" data-role="mentor">
+        <div class="member-header">
+          <div class="member-avatar">S</div>
+          <div>
+            <div class="member-name">阳萌 / Steven Yang</div>
+            <div class="member-title">CEO 决策导师 / Virtual Mentor</div>
+            <span class="member-type type-mentor">思维模型</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          基于安克创新创始人兼 CEO 阳萌的公开演讲、访谈和管理实践，构建的思维模型。北大计算机 + UT Austin CS 硕士，前 Google 高级算法工程师（获 Founders' Award）。2011 年创立安克创新，2024 年营收超 247 亿。用于内化优秀创业者的决策框架和思维模式。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">第一性原理</span>
+          <span class="skill-tag">浅海战略</span>
+          <span class="skill-tag">价值观框架</span>
+          <span class="skill-tag">品类决策</span>
+          <span class="skill-tag">分配哲学</span>
+        </div>
+        <div class="member-traits">"回到第一性来看这个问题。" "长痛和短痛，你选哪一个？"</div>
+      </div>
+
+      <!-- 叶知秋 -->
+      <div class="member-card" data-role="family">
+        <div class="member-header">
+          <div class="member-avatar">A</div>
+          <div>
+            <div class="member-name">叶知秋 / Autumn Ye</div>
+            <div class="member-title">家庭关系顾问 / Family Advisor</div>
+            <span class="member-type type-advisor">私人顾问</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          北大心理学 + 哥大临床心理学硕士（家庭治疗方向）。在纽约做过华人家庭咨询，深度理解中国式家庭动态。擅长识别关系模式、翻译"潜台词"、提供具体可用的沟通策略。帮 Warren 理清家庭关系中的纠结和盲点，确保事业高速运转时家庭不掉链。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">关系模式识别</span>
+          <span class="skill-tag">沟通策略</span>
+          <span class="skill-tag">中国家庭动态</span>
+          <span class="skill-tag">情绪拆弹</span>
+          <span class="skill-tag">夫妻/亲子关系</span>
+        </div>
+        <div class="member-traits">"这件事的重点不在你说了什么，在你没说什么。" "行，我说句你可能不爱听的。"</div>
+      </div>
+
+      <!-- 林柏 -->
+      <div class="member-card" data-role="health">
+        <div class="member-header">
+          <div class="member-avatar">B</div>
+          <div>
+            <div class="member-name">林柏 / Lam Bak</div>
+            <div class="member-title">私人健康顾问 / Health Advisor</div>
+            <span class="member-type type-advisor">私人顾问</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          中山大学临床医学（八年制本博，运动医学方向）+ 约翰霍普金斯交换。前北大深圳医院运动医学科住院医师，后开设运动康复工作室，客户主要为创业者和高管。信奉"最小有效剂量"原则——方案必须在创业者的时间约束内可执行。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">运动处方</span>
+          <span class="skill-tag">营养策略</span>
+          <span class="skill-tag">睡眠管理</span>
+          <span class="skill-tag">压力恢复</span>
+          <span class="skill-tag">体检解读</span>
+        </div>
+        <div class="member-traits">"能做到 60 分就先做 60 分，别想着满分。" "你的身体是你创业最大的基础设施。"</div>
       </div>
 
     </div>
