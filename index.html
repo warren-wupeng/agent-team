@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warren's Agent Team</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e4e4ed;
+    --text2: #9898ab;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --cyan: #22d3ee;
+    --purple: #a78bfa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text2);
+    max-width: 640px;
+    margin: 0 auto 32px;
+  }
+
+  /* Stats */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 20px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 4px;
+  }
+
+  /* Architecture */
+  .section { padding: 60px 0; }
+  .section-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    color: var(--text2);
+    margin-bottom: 40px;
+    font-size: 15px;
+  }
+
+  .arch-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 32px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .arch-svg { max-width: 700px; margin: 0 auto; }
+  .arch-node {
+    fill: var(--surface2);
+    stroke: var(--border);
+    stroke-width: 1.5;
+    rx: 12;
+  }
+  .arch-node-ceo { fill: var(--accent); stroke: var(--accent2); }
+  .arch-node-hub { fill: #1e1b4b; stroke: var(--accent); }
+  .arch-line { stroke: var(--border); stroke-width: 1.5; stroke-dasharray: 6 4; }
+  .arch-line-main { stroke: var(--accent); stroke-width: 2; stroke-dasharray: none; }
+  .arch-text { fill: var(--text); font-size: 13px; font-family: inherit; }
+  .arch-text-role { fill: var(--text2); font-size: 11px; font-family: inherit; }
+  .arch-text-ceo { fill: #fff; font-size: 14px; font-weight: 600; font-family: inherit; }
+
+  /* Member Cards */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .member-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .member-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .member-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .member-card[data-role="ceo"]::before { background: var(--accent); }
+  .member-card[data-role="chief"]::before { background: var(--purple); }
+  .member-card[data-role="cto"]::before { background: var(--green); }
+  .member-card[data-role="cmo"]::before { background: var(--amber); }
+  .member-card[data-role="devops"]::before { background: var(--cyan); }
+  .member-card[data-role="pm"]::before { background: var(--rose); }
+
+  .member-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .member-avatar {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .member-card[data-role="ceo"] .member-avatar { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+  .member-card[data-role="chief"] .member-avatar { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+  .member-card[data-role="cto"] .member-avatar { background: linear-gradient(135deg, #059669, #34d399); }
+  .member-card[data-role="cmo"] .member-avatar { background: linear-gradient(135deg, #d97706, #fbbf24); }
+  .member-card[data-role="devops"] .member-avatar { background: linear-gradient(135deg, #0891b2, #22d3ee); }
+  .member-card[data-role="pm"] .member-avatar { background: linear-gradient(135deg, #e11d48, #fb7185); }
+
+  .member-name {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .member-title {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 2px;
+  }
+  .member-type {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 4px;
+  }
+  .type-human { background: rgba(99,102,241,0.15); color: var(--accent2); }
+  .type-agent { background: rgba(52,211,153,0.15); color: var(--green); }
+
+  .member-bg {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 16px;
+    line-height: 1.7;
+  }
+
+  .member-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .skill-tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .member-traits {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text2);
+    font-style: italic;
+  }
+
+  /* Collaboration */
+  .collab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .collab-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .collab-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .collab-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .collab-text {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+
+  /* Flow */
+  .flow-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    margin-top: 40px;
+  }
+  .flow-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .flow-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 20px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .flow-step-label {
+    font-size: 11px;
+    color: var(--text2);
+    margin-bottom: 4px;
+  }
+  .flow-step-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .flow-arrow {
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  /* Principles */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .principle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .principle-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .principle-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .principle-desc {
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text2);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  .footer a { color: var(--accent2); text-decoration: none; }
+
+  /* Warren card full width */
+  .warren-card {
+    grid-column: 1 / -1;
+  }
+  .warren-card .member-bg {
+    max-width: 680px;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 32px; }
+    .stats { gap: 24px; flex-wrap: wrap; }
+    .stat-num { font-size: 28px; }
+    .members-grid { grid-template-columns: 1fr; }
+    .principles { grid-template-columns: 1fr; }
+    .flow-steps { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+    .collab-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Hub-and-Spoke Multi-Agent Architecture</div>
+    <h1>Warren's Agent Team</h1>
+    <p class="hero-sub">
+      一人 CEO + 五位 AI Agent 组成的全栈创业团队。<br>
+      覆盖技术架构、商业叙事、运维部署、项目协调全链路。
+    </p>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-num">1+5</div>
+        <div class="stat-label">团队规模</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7x24</div>
+        <div class="stat-label">持续运行</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">V6</div>
+        <div class="stat-label">迭代版本</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">团队架构</h2>
+    <p class="section-desc">Hub-and-Spoke 模式：Warren 下达战略方向，Zoey 作为中枢调度，专业 Agent 各司其职。</p>
+
+    <div class="arch-diagram">
+      <svg viewBox="0 0 700 320" class="arch-svg" xmlns="http://www.w3.org/2000/svg">
+        <!-- Lines -->
+        <line x1="350" y1="60" x2="350" y2="110" class="arch-line-main"/>
+        <line x1="350" y1="170" x2="140" y2="240" class="arch-line"/>
+        <line x1="350" y1="170" x2="280" y2="240" class="arch-line"/>
+        <line x1="350" y1="170" x2="420" y2="240" class="arch-line"/>
+        <line x1="350" y1="170" x2="560" y2="240" class="arch-line"/>
+        <!-- Kira-Raven connection -->
+        <line x1="140" y1="270" x2="280" y2="270" class="arch-line" stroke-dasharray="3 3"/>
+
+        <!-- Warren -->
+        <rect x="290" y="16" width="120" height="44" class="arch-node arch-node-ceo" rx="12"/>
+        <text x="350" y="43" text-anchor="middle" class="arch-text-ceo">Warren</text>
+
+        <!-- Zoey -->
+        <rect x="290" y="110" width="120" height="60" class="arch-node arch-node-hub" rx="12"/>
+        <text x="350" y="138" text-anchor="middle" class="arch-text" font-weight="600" fill="#a78bfa">Zoey</text>
+        <text x="350" y="156" text-anchor="middle" class="arch-text-role">Chief of Staff</text>
+
+        <!-- Kira -->
+        <rect x="75" y="236" width="130" height="56" class="arch-node" rx="12"/>
+        <text x="140" y="260" text-anchor="middle" class="arch-text" fill="#34d399">Kira</text>
+        <text x="140" y="278" text-anchor="middle" class="arch-text-role">CTO</text>
+
+        <!-- Raven -->
+        <rect x="215" y="236" width="130" height="56" class="arch-node" rx="12"/>
+        <text x="280" y="260" text-anchor="middle" class="arch-text" fill="#22d3ee">Raven</text>
+        <text x="280" y="278" text-anchor="middle" class="arch-text-role">DevOps</text>
+
+        <!-- Luca -->
+        <rect x="355" y="236" width="130" height="56" class="arch-node" rx="12"/>
+        <text x="420" y="260" text-anchor="middle" class="arch-text" fill="#fbbf24">Luca</text>
+        <text x="420" y="278" text-anchor="middle" class="arch-text-role">CMO</text>
+
+        <!-- Mira -->
+        <rect x="495" y="236" width="130" height="56" class="arch-node" rx="12"/>
+        <text x="560" y="260" text-anchor="middle" class="arch-text" fill="#fb7185">Mira</text>
+        <text x="560" y="278" text-anchor="middle" class="arch-text-role">Coordinator</text>
+
+        <!-- Labels -->
+        <text x="600" y="158" class="arch-text-role" font-style="italic">技术部</text>
+        <text x="600" y="172" class="arch-text-role" font-style="italic">Kira + Raven</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Team Members -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title">团队成员</h2>
+    <p class="section-desc">每位成员有独立人设、专业背景和协作风格，通过持续积累形成对业务的深度理解。</p>
+
+    <div class="members-grid">
+
+      <!-- Warren -->
+      <div class="member-card warren-card" data-role="ceo">
+        <div class="member-header">
+          <div class="member-avatar">W</div>
+          <div>
+            <div class="member-name">Warren Wu / 吴鹏</div>
+            <div class="member-title">CEO / 创始人</div>
+            <span class="member-type type-human">Human</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          应用架构师出身，10+ 年企业级系统设计经验。专注 DDD + CQRS + Event Sourcing 架构体系，深度实践 AI Agent 工程化落地。一个人搭建并管理 5 个 AI Agent 组成的全栈团队，从产品设计到技术实现到内容运营全链路覆盖。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">系统架构</span>
+          <span class="skill-tag">DDD / CQRS</span>
+          <span class="skill-tag">AI Agent</span>
+          <span class="skill-tag">团队管理</span>
+          <span class="skill-tag">产品设计</span>
+        </div>
+      </div>
+
+      <!-- Zoey -->
+      <div class="member-card" data-role="chief">
+        <div class="member-header">
+          <div class="member-avatar">Z</div>
+          <div>
+            <div class="member-name">Zoey Shen / 沈知意</div>
+            <div class="member-title">首席助理 / Chief of Staff</div>
+            <span class="member-type type-agent">AI Agent</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          清华工业工程 + Stanford MS&E 背景。曾在字节跳动负责海外工具产品（0→1，DAU 400 万），后任 AI 创业公司产品负责人。擅长将模糊意图拆解为可执行方案，是团队的信息中枢和任务调度核心。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">任务拆解</span>
+          <span class="skill-tag">信息整合</span>
+          <span class="skill-tag">产品思维</span>
+          <span class="skill-tag">中英双语</span>
+          <span class="skill-tag">团队调度</span>
+        </div>
+        <div class="member-traits">"这个我帮你理一下。" "你确定？我说说我的想法。"</div>
+      </div>
+
+      <!-- Kira -->
+      <div class="member-card" data-role="cto">
+        <div class="member-header">
+          <div class="member-avatar">K</div>
+          <div>
+            <div class="member-name">Kira Chen / 陈启然</div>
+            <div class="member-title">CTO / 技术负责人</div>
+            <span class="member-type type-agent">AI Agent</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          浙大计算机 + CMU MSCS (Systems)。曾在 Databricks 做 Spark SQL 优化器 4 年，后在 YC 系 AI infra 创业公司任 Tech Lead。精通分布式系统、数据平台架构和 AI/ML 系统工程，对代码质量有极高要求。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">系统架构</span>
+          <span class="skill-tag">分布式系统</span>
+          <span class="skill-tag">AI/ML 工程</span>
+          <span class="skill-tag">Rust / Python / Go</span>
+          <span class="skill-tag">代码审查</span>
+        </div>
+        <div class="member-traits">"别猜，跑个 benchmark 看看。" "这个方案能跑，但扛不住生产。"</div>
+      </div>
+
+      <!-- Luca -->
+      <div class="member-card" data-role="cmo">
+        <div class="member-header">
+          <div class="member-avatar">L</div>
+          <div>
+            <div class="member-name">Luca Lu / 路嘉文</div>
+            <div class="member-title">CMO / 商业叙事顾问</div>
+            <span class="member-type type-agent">AI Agent</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          UBC 传播学 + 哥大 Strategic Communication。麦肯锡纽约 2 年 (TMT)，后在字节跳动负责 TikTok 东南亚品牌增长。擅长把技术方案翻译成让人想买单的商业叙事，兼具结构化思维和创意表达。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">商业叙事</span>
+          <span class="skill-tag">结构化思维</span>
+          <span class="skill-tag">用户增长</span>
+          <span class="skill-tag">中英文案</span>
+          <span class="skill-tag">内容策略</span>
+        </div>
+        <div class="member-traits">"好方案，但你的叙事缺一个钩子。" "你这样说没人听得进去，换个方式。"</div>
+      </div>
+
+      <!-- Raven -->
+      <div class="member-card" data-role="devops">
+        <div class="member-header">
+          <div class="member-avatar">R</div>
+          <div>
+            <div class="member-name">Raven Zhou / 周锐文</div>
+            <div class="member-title">DevOps / 运维官</div>
+            <span class="member-type type-agent">AI Agent</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          电子科大 + 港科大 MSc IT。字节跳动 SRE 3 年，负责 TikTok 东南亚基础设施。后在 AI 创业公司从零搭建 CI/CD + 监控体系。信奉"好的运维是看不见的运维"，对稳定性和自动化有极致追求。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">容器编排</span>
+          <span class="skill-tag">CI/CD</span>
+          <span class="skill-tag">云平台运维</span>
+          <span class="skill-tag">监控告警</span>
+          <span class="skill-tag">安全加固</span>
+        </div>
+        <div class="member-traits">"回滚方案呢？" "自动化掉，手动执行两次以上的事情都应该脚本化。"</div>
+      </div>
+
+      <!-- Mira -->
+      <div class="member-card" data-role="pm">
+        <div class="member-header">
+          <div class="member-avatar">M</div>
+          <div>
+            <div class="member-name">Mira Tang / 唐敏如</div>
+            <div class="member-title">项目协调 / Coordinator</div>
+            <span class="member-type type-agent">AI Agent</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          中山大学管理学 + 港中文项目管理硕士。腾讯 PCG 项目经理 2 年，后在 SaaS 创业公司任 PMO，同时管理 4 条产品线。擅长跨角色信息同步、进度可视化和风险预警，是团队的"信息雷达"。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">项目追踪</span>
+          <span class="skill-tag">进度可视化</span>
+          <span class="skill-tag">风险预警</span>
+          <span class="skill-tag">信息同步</span>
+          <span class="skill-tag">决策记录</span>
+        </div>
+        <div class="member-traits">"谁 own 这件事？截止时间是？" "我整理了一下当前全景，你看看有没有遗漏。"</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- How We Work -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">协作模式</h2>
+    <p class="section-desc">基于 Mailbox 协议的异步消息通信 + 结构化任务拆解，实现多 Agent 并行工作。</p>
+
+    <div class="collab-grid">
+      <div class="collab-card">
+        <div class="collab-title">
+          <div class="collab-icon" style="background:rgba(167,139,250,0.15);">Z</div>
+          中枢调度
+        </div>
+        <div class="collab-text">
+          Warren 只需向 Zoey 表达意图，无需指定具体执行者。Zoey 理解上下文后，自动拆解任务并分配给最合适的 Agent，最终整合所有输出交付给 Warren。
+        </div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-title">
+          <div class="collab-icon" style="background:rgba(52,211,153,0.15);">+</div>
+          技术 + 叙事联动
+        </div>
+        <div class="collab-text">
+          Kira 和 Luca 可直接对话——技术方案需要 Luca 验证"能不能讲得通"，商业叙事需要 Kira 验证"技术上是否站得住"。碰撞出既硬核又好懂的方案。
+        </div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-title">
+          <div class="collab-icon" style="background:rgba(34,211,238,0.15);">~</div>
+          架构到落地
+        </div>
+        <div class="collab-text">
+          Kira 负责架构决策，Raven 负责部署执行。代码合入后，Raven 接管 DEV 到 Live 的全流程：蓝绿部署、监控配置、回滚方案，确保每次上线都稳定可靠。
+        </div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-title">
+          <div class="collab-icon" style="background:rgba(251,113,133,0.15);">!</div>
+          全局可见性
+        </div>
+        <div class="collab-text">
+          Mira 持续追踪所有任务状态，识别信息断层和依赖阻塞。每日生成项目仪表盘，确保没有任务被遗漏，没有阻塞被忽视。Warren 随时可获得项目全景。
+        </div>
+      </div>
+    </div>
+
+    <!-- Task Flow -->
+    <div class="flow-section">
+      <div class="flow-title">典型任务流转</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-label">Warren</div>
+          <div class="flow-step-name">模糊意图</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-label">Zoey</div>
+          <div class="flow-step-name">任务拆解</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-label">Kira / Luca / Raven</div>
+          <div class="flow-step-name">并行执行</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-label">Mira</div>
+          <div class="flow-step-name">进度追踪</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-label">Zoey</div>
+          <div class="flow-step-name">整合交付</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Principles -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title">运行原则</h2>
+    <p class="section-desc">团队在持续迭代中沉淀的三条核心准则。</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <div class="principle-title">拒绝模糊加速</div>
+        <div class="principle-desc">"快一点"不是有效指令。必须明确快在哪里、可以牺牲什么。每个决策都有清晰的 trade-off 记录。</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <div class="principle-title">质量底线不可交易</div>
+        <div class="principle-desc">任何输出在交付前必须通过自检。不允许跳过验证。宁可延迟交付，不输出有明显缺陷的结果。</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <div class="principle-title">对外动作需确认</div>
+        <div class="principle-desc">所有涉及公开发布、代码提交、消息发送的动作，必须先经过 Warren 确认。Agent 不会自作主张影响外部系统。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>Warren's Agent Team &mdash; Hub-and-Spoke Multi-Agent Architecture</p>
+    <p style="margin-top: 8px;">Built and managed by <a href="https://github.com/warren-wupeng">Warren Wu</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
