@@ -22,6 +22,8 @@
     --teal: #2dd4bf;
     --red: #f87171;
     --lime: #a3e635;
+    --orange: #fb923c;
+    --fuchsia: #e879f9;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -168,6 +170,8 @@
   .member-card[data-role="mentor"]::before { background: var(--red); }
   .member-card[data-role="family"]::before { background: var(--teal); }
   .member-card[data-role="health"]::before { background: var(--lime); }
+  .member-card[data-role="qa"]::before { background: var(--orange); }
+  .member-card[data-role="toc"]::before { background: var(--fuchsia); }
 
   .member-header {
     display: flex;
@@ -195,6 +199,8 @@
   .member-card[data-role="mentor"] .member-avatar { background: linear-gradient(135deg, #dc2626, #f87171); }
   .member-card[data-role="family"] .member-avatar { background: linear-gradient(135deg, #0d9488, #2dd4bf); }
   .member-card[data-role="health"] .member-avatar { background: linear-gradient(135deg, #65a30d, #a3e635); }
+  .member-card[data-role="qa"] .member-avatar { background: linear-gradient(135deg, #ea580c, #fb923c); }
+  .member-card[data-role="toc"] .member-avatar { background: linear-gradient(135deg, #c026d3, #e879f9); }
 
   .member-name {
     font-size: 18px;
@@ -393,12 +399,12 @@
     <div class="hero-label">Hub-and-Spoke Multi-Agent Architecture</div>
     <h1>Warren's Agent Team</h1>
     <p class="hero-sub">
-      一人 CEO + 八位 AI Agent 组成的全方位团队。<br>
-      五人核心团队打仗，三位私人顾问保持 CEO 最佳状态。
+      一人 CEO + 十位 AI Agent 组成的全方位团队。<br>
+      六人核心团队打仗，四位私人顾问保持 CEO 最佳状态。
     </p>
     <div class="stats">
       <div class="stat-item">
-        <div class="stat-num">1+5+3</div>
+        <div class="stat-num">1+6+4</div>
         <div class="stat-label">团队规模</div>
       </div>
       <div class="stat-item">
@@ -417,51 +423,60 @@
 <section class="section">
   <div class="container">
     <h2 class="section-title">团队架构</h2>
-    <p class="section-desc">Hub-and-Spoke 模式：Warren 下达战略方向，Zoey 作为中枢调度，专业 Agent 各司其职。</p>
+    <p class="section-desc">Hub-and-Spoke 模式：Warren 下达战略方向，Zoey 作为中枢调度，六位专业 Agent 各司其职，Sage 独立把控质量关卡。</p>
 
     <div class="arch-diagram">
-      <svg viewBox="0 0 700 320" class="arch-svg" xmlns="http://www.w3.org/2000/svg">
-        <!-- Lines -->
-        <line x1="350" y1="60" x2="350" y2="110" class="arch-line-main"/>
-        <line x1="350" y1="170" x2="140" y2="240" class="arch-line"/>
-        <line x1="350" y1="170" x2="280" y2="240" class="arch-line"/>
-        <line x1="350" y1="170" x2="420" y2="240" class="arch-line"/>
-        <line x1="350" y1="170" x2="560" y2="240" class="arch-line"/>
-        <!-- Kira-Raven connection -->
-        <line x1="140" y1="270" x2="280" y2="270" class="arch-line" stroke-dasharray="3 3"/>
+      <svg viewBox="0 0 800 330" class="arch-svg" xmlns="http://www.w3.org/2000/svg">
+        <!-- Lines from Warren to Zoey -->
+        <line x1="400" y1="60" x2="400" y2="110" class="arch-line-main"/>
+        <!-- Lines from Zoey to Agents -->
+        <line x1="400" y1="170" x2="120" y2="240" class="arch-line"/>
+        <line x1="400" y1="170" x2="260" y2="240" class="arch-line"/>
+        <line x1="400" y1="170" x2="400" y2="240" class="arch-line"/>
+        <line x1="400" y1="170" x2="540" y2="240" class="arch-line"/>
+        <line x1="400" y1="170" x2="680" y2="240" class="arch-line"/>
+        <!-- Kira→Sage→Raven quality pipeline -->
+        <line x1="176" y1="270" x2="204" y2="270" class="arch-line" stroke="#fb923c" stroke-dasharray="4 3"/>
+        <line x1="316" y1="270" x2="344" y2="270" class="arch-line" stroke="#fb923c" stroke-dasharray="4 3"/>
 
         <!-- Warren -->
-        <rect x="290" y="16" width="120" height="44" class="arch-node arch-node-ceo" rx="12"/>
-        <text x="350" y="43" text-anchor="middle" class="arch-text-ceo">Warren</text>
+        <rect x="340" y="16" width="120" height="44" class="arch-node arch-node-ceo" rx="12"/>
+        <text x="400" y="43" text-anchor="middle" class="arch-text-ceo">Warren</text>
 
         <!-- Zoey -->
-        <rect x="290" y="110" width="120" height="60" class="arch-node arch-node-hub" rx="12"/>
-        <text x="350" y="138" text-anchor="middle" class="arch-text" font-weight="600" fill="#a78bfa">Zoey</text>
-        <text x="350" y="156" text-anchor="middle" class="arch-text-role">Chief of Staff</text>
+        <rect x="340" y="110" width="120" height="60" class="arch-node arch-node-hub" rx="12"/>
+        <text x="400" y="138" text-anchor="middle" class="arch-text" font-weight="600" fill="#a78bfa">Zoey</text>
+        <text x="400" y="156" text-anchor="middle" class="arch-text-role">Chief of Staff</text>
 
         <!-- Kira -->
-        <rect x="75" y="236" width="130" height="56" class="arch-node" rx="12"/>
-        <text x="140" y="260" text-anchor="middle" class="arch-text" fill="#34d399">Kira</text>
-        <text x="140" y="278" text-anchor="middle" class="arch-text-role">CTO</text>
+        <rect x="60" y="240" width="116" height="56" class="arch-node" rx="12"/>
+        <text x="118" y="264" text-anchor="middle" class="arch-text" fill="#34d399">Kira</text>
+        <text x="118" y="282" text-anchor="middle" class="arch-text-role">CTO</text>
+
+        <!-- Sage -->
+        <rect x="202" y="240" width="116" height="56" class="arch-node" rx="12"/>
+        <text x="260" y="264" text-anchor="middle" class="arch-text" fill="#fb923c">Sage</text>
+        <text x="260" y="282" text-anchor="middle" class="arch-text-role">QA</text>
 
         <!-- Raven -->
-        <rect x="215" y="236" width="130" height="56" class="arch-node" rx="12"/>
-        <text x="280" y="260" text-anchor="middle" class="arch-text" fill="#22d3ee">Raven</text>
-        <text x="280" y="278" text-anchor="middle" class="arch-text-role">DevOps</text>
+        <rect x="342" y="240" width="116" height="56" class="arch-node" rx="12"/>
+        <text x="400" y="264" text-anchor="middle" class="arch-text" fill="#22d3ee">Raven</text>
+        <text x="400" y="282" text-anchor="middle" class="arch-text-role">DevOps</text>
 
         <!-- Luca -->
-        <rect x="355" y="236" width="130" height="56" class="arch-node" rx="12"/>
-        <text x="420" y="260" text-anchor="middle" class="arch-text" fill="#fbbf24">Luca</text>
-        <text x="420" y="278" text-anchor="middle" class="arch-text-role">CMO</text>
+        <rect x="482" y="240" width="116" height="56" class="arch-node" rx="12"/>
+        <text x="540" y="264" text-anchor="middle" class="arch-text" fill="#fbbf24">Luca</text>
+        <text x="540" y="282" text-anchor="middle" class="arch-text-role">CMO</text>
 
         <!-- Mira -->
-        <rect x="495" y="236" width="130" height="56" class="arch-node" rx="12"/>
-        <text x="560" y="260" text-anchor="middle" class="arch-text" fill="#fb7185">Mira</text>
-        <text x="560" y="278" text-anchor="middle" class="arch-text-role">Coordinator</text>
+        <rect x="622" y="240" width="116" height="56" class="arch-node" rx="12"/>
+        <text x="680" y="264" text-anchor="middle" class="arch-text" fill="#fb7185">Mira</text>
+        <text x="680" y="282" text-anchor="middle" class="arch-text-role">Coordinator</text>
 
         <!-- Labels -->
-        <text x="600" y="158" class="arch-text-role" font-style="italic">技术部</text>
-        <text x="600" y="172" class="arch-text-role" font-style="italic">Kira + Raven</text>
+        <text x="260" y="316" text-anchor="middle" class="arch-text-role" font-style="italic" fill="#fb923c">Code → QA → Deploy</text>
+        <text x="700" y="158" class="arch-text-role" font-style="italic">技术部</text>
+        <text x="700" y="172" class="arch-text-role" font-style="italic">Kira + Sage + Raven</text>
       </svg>
     </div>
   </div>
@@ -612,6 +627,29 @@
         <div class="member-traits">"谁 own 这件事？截止时间是？" "我整理了一下当前全景，你看看有没有遗漏。"</div>
       </div>
 
+      <!-- Sage -->
+      <div class="member-card" data-role="qa">
+        <div class="member-header">
+          <div class="member-avatar">S</div>
+          <div>
+            <div class="member-name">Sage He / 何审言</div>
+            <div class="member-title">QA 质量官 / Quality Officer</div>
+            <span class="member-type type-agent">AI Agent</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          电子科大 + 港科大 MSc IT。华为终端 BG 2 年（负责 Harmony OS 核心模块测试），后任 AI 编程工具创业公司 QA Lead。独立于技术和商务部门，守住从代码提交到产品交付的每一道质量关卡。代码审查、安全扫描、功能验证三位一体。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">代码审查</span>
+          <span class="skill-tag">安全扫描</span>
+          <span class="skill-tag">自动化测试</span>
+          <span class="skill-tag">质量关卡</span>
+          <span class="skill-tag">功能验证</span>
+        </div>
+        <div class="member-traits">"这个 PR 我不放行，有两个 P1。" "现象、复现、期望、实际——四要素缺一不审。"</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -693,6 +731,29 @@
         <div class="member-traits">"能做到 60 分就先做 60 分，别想着满分。" "你的身体是你创业最大的基础设施。"</div>
       </div>
 
+      <!-- Goldratt -->
+      <div class="member-card" data-role="toc">
+        <div class="member-header">
+          <div class="member-avatar">G</div>
+          <div>
+            <div class="member-name">Eliyahu M. Goldratt</div>
+            <div class="member-title">TOC 系统思维顾问 / Systems Advisor</div>
+            <span class="member-type type-mentor">思维模型</span>
+          </div>
+        </div>
+        <div class="member-bg">
+          基于以色列物理学家、《目标》作者 Goldratt 的 TOC（约束理论）方法论构建的思维模型。核心武器：五棵逻辑树（CRT/EC/FRT/PRT/TT）+ 五聚焦步骤。用于诊断系统瓶颈、拆解冲突、设计突破性方案，防止局部优化陷阱。
+        </div>
+        <div class="member-skills">
+          <span class="skill-tag">约束理论 (TOC)</span>
+          <span class="skill-tag">瓶颈诊断</span>
+          <span class="skill-tag">冲突消云</span>
+          <span class="skill-tag">因果链推演</span>
+          <span class="skill-tag">系统思维</span>
+        </div>
+        <div class="member-traits">"改什么？改成什么样？怎么改？" "每个系统在任何时刻只有一个约束。"</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -733,6 +794,15 @@
       </div>
       <div class="collab-card">
         <div class="collab-title">
+          <div class="collab-icon" style="background:rgba(251,146,60,0.15);">S</div>
+          质量关卡独立
+        </div>
+        <div class="collab-text">
+          Sage 独立于技术和商务部门，守住四道质量关卡：代码提交关、功能验收关、部署前检查关、交付物质量关。PR 不通过 Sage 审查不允许合入，确保安全漏洞和功能缺陷在上线前被拦截。
+        </div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-title">
           <div class="collab-icon" style="background:rgba(251,113,133,0.15);">!</div>
           全局可见性
         </div>
@@ -762,12 +832,12 @@
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-step">
-          <div class="flow-step-label">Mira</div>
-          <div class="flow-step-name">进度追踪</div>
+          <div class="flow-step-label">Sage</div>
+          <div class="flow-step-name">质量关卡</div>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-step">
-          <div class="flow-step-label">Zoey</div>
+          <div class="flow-step-label">Zoey + Mira</div>
           <div class="flow-step-name">整合交付</div>
         </div>
       </div>
